@@ -83,13 +83,25 @@ jobs:
         shell: cmd
         run:
           7z a -m0=lzma2 -mx=9 -ms=on yuzu-windows.7z artifacts/*
-      - name: Create release
+      - name: Create run_number
         uses: ncipollo/release-action@v1
         with:
           artifacts: "yuzu-windows.7z,artifacts/yuzu.exe"
           name: "${{ env.time }}"
           body: "${{ env.body }}"
           tag: "${{ github.run_number }}"
+          allowUpdates: true
+          artifactErrorsFailBuild: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "yuzu-windows.7z,artifacts/yuzu.exe"
+          name: "${{ env.time }}"
+          body: "${{ env.body }}"
+          tag: "release"
           allowUpdates: true
           artifactErrorsFailBuild: false
           prerelease: false
