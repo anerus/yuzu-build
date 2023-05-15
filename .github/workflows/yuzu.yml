@@ -89,7 +89,7 @@ jobs:
           artifacts: "yuzu-windows.7z,artifacts/yuzu.exe"
           name: "${{ env.time }}"
           body: "${{ env.body }}"
-          tag: "release"
+          tag: "${{ github.run_number }}"
           allowUpdates: true
           artifactErrorsFailBuild: false
           prerelease: false
